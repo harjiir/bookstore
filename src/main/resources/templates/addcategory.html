@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Bookstore - Add Category</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	
+	<link href="styles/demo.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+	
+	<style type="text/css">
+		form{max-width: 800px;padding: 20px;}
+		h1{margin-left: 30px;}
+		.form-group{margin-top: 30px;}
+		.form-row{margin-top: 30px;}
+		a {margin-right: 15px; background-color: red; border-radius: 25px; color: white; padding: 5px 10px; 
+		text-align: center;	display: inline-block;}
+		a:hover {color: white; text-decoration: none;}
+		input {margin-right: 15px; background-color: green; border-radius: 25px; color: white; 
+		padding: 5px 10px; display: inline-block; border: none;}
+	</style>
+</head>
+
+<body>
+	<h1>Add a new category</h1>
+	<div>
+		<form th:object="${category}" th:action="@{saveCategory}" action="#" method="post">
+		  	<div class="form-row">
+			  	<div class="col">
+			  		<label for="categoryName">Category name</label>
+					<input type="text" id="categoryName" class="form-control" th:field="*{categoryName}" />
+			  	</div>
+			</div>
+			<p></p>
+			<input type="submit" value="Submit"></input>
+			<p></p>
+			<a href="/categorylist">Back to categories</a>
+		</form>
+	</div>
+</body>
+</html>
