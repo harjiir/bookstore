@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 // @Entity represents a table in relational database
 // Can be changed by using @Table annotation
 
@@ -32,6 +34,7 @@ public class Book {
 	// @JoinColumn = defines the owner of the relationship
 	// (Category categoryId is now FK in Book table)
 	@ManyToOne
+	@JsonIgnoreProperties("books")
 	@JoinColumn(name = "categoryId")
 	private Category category;
 

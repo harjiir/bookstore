@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Category {
 
@@ -18,6 +20,8 @@ public class Category {
 	private Long categoryId;
 	private String categoryName;
 
+	// Otherwise entity relationship will cause endless loop
+	@JsonIgnore
 	// @ManyToOne or @OneToMany = defines a relationship between two entities
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
 	private List<Book> books;

@@ -1,14 +1,19 @@
 package exercise.bookstore.web;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import exercise.bookstore.domain.Book;
 import exercise.bookstore.domain.BookRepository;
+import exercise.bookstore.domain.Category;
 import exercise.bookstore.domain.CategoryRepository;
 
 @Controller
@@ -21,6 +26,18 @@ public class BookController {
 
 	@Autowired
 	private CategoryRepository categoryRepo;
+
+	// All books with REST
+	@GetMapping("/books")
+	public @ResponseBody List<Book> bookListRest() {
+		return (List<Book>) bookRepo.findAll();
+	}
+
+	// Book by id with REST
+	@GetMapping("/books/{id}")
+	public @ResponseBody Optional<Book> findBookRest(@PathVariable("id") Long bookId) {
+		return bookRepo.findById(bookId);
+	}
 
 	// All books
 	@GetMapping("/booklist")
@@ -62,5 +79,19 @@ public class BookController {
 		// give categories to model
 		model.addAttribute("categories", categoryRepo.findAll());
 		return "editbook"; // editbook.html
+	}
+
+	// Add category
+	@GetMapping("/addcategory")
+	public String addCategory(Model model) {
+		model.addAttribute("category", new Category());
+		return "addcategory"; // addcategory.html
+	}
+
+	// Redirect to categorylist after adding new category with a form
+	@PostMapping("/saveCategory")
+	public String saveCategory(Category category) {
+		categoryRepo.save(category);
+		return "redirect:booklist"; // redirect to categorylist
 	}
 }
