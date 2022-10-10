@@ -52,9 +52,9 @@
 				<div class="col">
 			  		<label for="deplist">Category</label>
 			  			<select id="deplist" th:field="*{category}" class="form-control">
-			  				<option th:each="categories: ${categories}" 
-			  							th:value="${categories.categoryId}" 
-			  								th:text="${categories.categoryName}">
+			  				<option th:each="category: ${categories}" 
+			  							th:value="${category.categoryId}" 
+			  								th:text="${category.categoryName}">
 			  				</option>
 			  			</select>
 				</div>

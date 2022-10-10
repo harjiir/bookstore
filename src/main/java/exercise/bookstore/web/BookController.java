@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import exercise.bookstore.domain.Book;
@@ -27,6 +29,12 @@ public class BookController {
 	@Autowired
 	private CategoryRepository categoryRepo;
 
+	// Login page
+	@RequestMapping(value = "/login")
+	public String login() {
+		return "login"; // login.html
+	}
+
 	// All books with REST
 	@GetMapping("/books")
 	public @ResponseBody List<Book> bookListRest() {
@@ -37,6 +45,12 @@ public class BookController {
 	@GetMapping("/books/{id}")
 	public @ResponseBody Optional<Book> findBookRest(@PathVariable("id") Long bookId) {
 		return bookRepo.findById(bookId);
+	}
+
+	// Save book with REST
+	@PostMapping("/books")
+	public @ResponseBody Book saveBookRest(@RequestBody Book book) {
+		return bookRepo.save(book);
 	}
 
 	// All books

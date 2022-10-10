@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 	<title>Bookstore - A List of Books</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -16,10 +16,17 @@
   			display: inline-block;}
 		.more a {margin-right: 15px; background-color: red; border-radius: 25px; color: white; padding: 5px 10px; 
 			text-align: center; text-decoration: none; display: inline-block;}
+		p{color: red;}
 	</style>
 </head>
 
 <body>
+	<p th:inline="text">You are signed in as <b>[[${#httpServletRequest.remoteUser}]]</b></p>
+	<div>
+		<form th:action="@{/logout}" method="post">
+			<input type="submit" value="Sign out"/>
+		</form>
+	</div>
 	<h1>Bookstore</h1>
      <p class="form"><a href="/addbook">Add a new Book</a></p>
      <p class="form"><a href="/addcategory">Add a new Category</a></p>
@@ -45,7 +52,7 @@
 	    		<td th:text="${book.category.categoryName}"></td>
 	    		<td class="more">
 	    			<a th:href="@{/editbook/{id}(id=${book.id})}" style="background-color: orange;" >Edit</a>
-	    			<a th:href="@{/deletebook/{id}(id=${book.id})}">Delete</a>
+	    			<a sec:authorize="hasRole('ADMIN')" th:href="@{/deletebook/{id}(id=${book.id})}">Delete</a>
 	    		</td>
 	    	</tr>
 		</tbody>  
