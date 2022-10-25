@@ -24,7 +24,7 @@ public class WebSecurityConfig {
 	public SecurityFilterChain configure(HttpSecurity http) throws Exception {
 		// these endpoints don't need authentication
 		// Enable css when logged out
-		http.authorizeRequests().antMatchers("/css/**", "/booklist").permitAll().anyRequest().authenticated().and()
+		http.authorizeRequests().antMatchers("/booklist").permitAll().anyRequest().authenticated().and()
 
 				.formLogin().defaultSuccessUrl("/booklist", true).permitAll().and().logout().permitAll().and()
 				.httpBasic();
