@@ -30,7 +30,7 @@ public class BookController {
 	@Autowired
 	private CategoryRepository categoryRepo;
 
-	// Login page
+	// Login page, Not working at the moment, see securityconfig
 	@RequestMapping(value = "/login")
 	public String login() {
 		return "login"; // login.html
